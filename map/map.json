@@ -1,0 +1,22 @@
+{
+    "backgrounds":[
+        {
+            "tile": "ground",
+            "ranges": [
+                [
+                    0, 50,
+                    0, 50
+                ]
+            ]
+        },
+        {
+            "tile": "flowers",
+            "ranges": [
+                [
+                    25, 30,
+                    25, 30
+                ]
+            ]
+        }
+    ]
+}
