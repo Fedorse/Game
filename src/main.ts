@@ -1,65 +1,44 @@
 import Timer from "./Timer";
-import Compositor from "./Compositor";
-import { loadMap } from "./loaders";
-import { loadBackgroundSprites } from "./sprites";
+import { loadLevel } from "./loaders";
 import { createPlayer } from "./entities";
-import { createBackgroundLayer, createSpriteLayer } from "./layers";
+import {  createCollisonLayer} from "./layers";
 
-import KeyBoard from "./KeyBoardState";
 
-const canvas = document.getElementById("screen") as HTMLCanvasElement
+import { setupKyeboard } from "./input";
+
+const canvas = document.getElementById("screen") 
 const context = canvas.getContext("2d")
-
-
 
 Promise.all([
   createPlayer(),
-  loadBackgroundSprites(),  
-  loadMap('map')
+  loadLevel('map')
 ])
-.then(([player,backgroundSpites, map ])=> {
-
-  const comp = new Compositor()
-
-  const backgroundLayer = createBackgroundLayer(map.backgrounds, backgroundSpites)
-  comp.layers.push(backgroundLayer)
-
-
+.then(([player, map ])=> {
   player.pos.set(100,180)
 
-  const LEFT = 37
-  const UP = 38
-  const RIGHT = 39
-  const DOWN = 40
+  map.comp.layers.push(createCollisonLayer(map))
+  
+  map.entities.add(player)
 
-  const input = new KeyBoard()
 
-  input.addMapping(LEFT, keyState => {
-    player.vel.x = keyState ? -300 : 0
-  })
+  const input = setupKyeboard(player)
+  input.listenTo(window);
 
-  input.addMapping(RIGHT, keyState => {
-    player.vel.x = keyState ? 300 : 0
-  })
-
-  input.addMapping(UP, keyState => {
-    player.vel.y = keyState ? -300: 0
-  })
-
-  input.addMapping(DOWN, keyState => {
-    player.vel.y = keyState ? 300 : 0
-  })
-
-  input.listenTo(window)
-
-  const spriteLayer = createSpriteLayer(player)
-  comp.layers.push(spriteLayer)
+	['mousedown', 'mousemove'].forEach((eventName) => {
+		canvas.addEventListener(eventName, (event) => {
+			if (event.buttons === 1) {
+				player.vel.set(0, 0);
+				player.pos.set(event.offsetX, event.offsetY);
+			}
+		});
+	});
 
   const timer = new Timer(1/60)
    timer.update = function update(deltaTime){
-     player.update(deltaTime)
+    map.update(deltaTime)
+    map.comp.draw(context)
 
-    comp.draw(context)
+
     
 
   }

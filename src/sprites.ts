@@ -16,7 +16,7 @@ import SpiteSheet from "./spiteSheet";
         .then((image) => {
             const sprites = new SpiteSheet(image, 16, 16)
             sprites.defineTile('ground', 2, 6)
-            sprites.defineTile('flowers', 0, 0)
+            sprites.defineTile('wall', 0, 0)
             return sprites
         })
  }
