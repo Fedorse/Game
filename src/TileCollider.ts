@@ -29,8 +29,7 @@ export default class TileCollider {
                     entity.pos.x = match.x1 - entity.size.x
                     entity.vel.x = 0
                 }
-            }
-            else if (entity.vel.x < 0) {
+            } else if (entity.vel.x < 0) {
                 if(entity.pos.x < match.x2) {
                     entity.pos.x = match.x2
                     entity.vel.x = 0   

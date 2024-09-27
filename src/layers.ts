@@ -1,12 +1,3 @@
-// export const drawBackground = (background, context, sprites) => {
-//     background.ranges.forEach(([x1, x2, y1, y2])=>{
-//       for(let x = x1; x < x2; x++){
-//         for(let y = y1; y < y2; y++){
-//           sprites.drawTile(background.tile, context, x, y)
-//         }
-//       }
-//     })
-//   }
 
   export const createBackgroundLayer = (level, sprites) => {
         const buffer = document.createElement('canvas')
@@ -15,9 +6,6 @@
 
         const context = buffer.getContext('2d')
 
-        // backgrounds.forEach(background => {
-        //     drawBackground(background, buffer.getContext('2d'), sprites)
-        // })
         level.tiles.forEach((tile, x, y)=> {
           sprites.drawTile(tile.name, context, x, y)
         })
@@ -39,11 +27,10 @@ export const createSpriteLayer = (entities)=> {
 
 export const createCollisonLayer = (level) => {
   const resolvedTiles = []
-
   const tileResolver = level.tileCollider.tiles
   const tileSize = tileResolver.tileSize
 
-  const getByIndexOriginal = tileResolver.getByIndex
+  const getByIndexOriginal = tileResolver.getByIndex;
 
   tileResolver.getByIndex = function getByIndexFake(x, y) {
     resolvedTiles.push({x, y})

@@ -13,12 +13,13 @@ Promise.all([
   createPlayer(),
   loadLevel('map')
 ])
-.then(([player, map ])=> {
+.then(([player, level ])=> {
   player.pos.set(100,180)
 
-  map.comp.layers.push(createCollisonLayer(map))
-  
-  map.entities.add(player)
+  level.comp.layers.push(createCollisonLayer(level))
+  level.entities.add(player)
+  console.log(level)
+console.log(level.tileCollider)
 
 
   const input = setupKyeboard(player)
@@ -35,8 +36,8 @@ Promise.all([
 
   const timer = new Timer(1/60)
    timer.update = function update(deltaTime){
-    map.update(deltaTime)
-    map.comp.draw(context)
+    level.update(deltaTime)
+    level.comp.draw(context)
 
 
     
