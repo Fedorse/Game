@@ -12,10 +12,6 @@ export const loadImage = (url: string) => {
     })
    }
    
-//  export  const loadMap = (name: string) => {
-//      return fetch(`/map/${name}.json`)
-//        .then(responce => responce.json())
-//    }
 
    export const createTiles = (level, backgrounds) => {
       backgrounds.forEach((background) => {

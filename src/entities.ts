@@ -13,7 +13,7 @@ export const createPlayer = () => {
             player.addTrait(new Go());
 
             player.draw = function drawPlayer(context) {
-                sprite.draw('player', context, this.pos.x, this.pos.y)
+                sprite.draw('player', context, 0, 0)
             }
 
             return player
